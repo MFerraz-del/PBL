@@ -1,0 +1,125 @@
+abstract class Personagem {
+    boolean vivo;
+    float posicao_x;
+    float posicao_y;
+    float posicao_z;
+    int cor;
+    Heroi heroi;
+
+    public Personagem() {
+        this.vivo = true;
+        this.posicao_x = 0;
+        this.posicao_y = 0;
+        this.posicao_z = 0;
+        this.cor = 0;
+    }
+
+    public abstract void correr(float x, float y);
+    public abstract void saltar(float z);
+    public abstract void atirar();
+    public abstract void morrer();
+    public abstract void camuflar(int cor);
+    public abstract void personificar(Heroi h);
+}
+
+class Heroi extends Personagem {
+    
+    @Override
+    public void correr(float x, float y) {
+        this.posicao_x = x;
+        this.posicao_y = y;
+        System.out.println("Heroi correndo ...");
+    }
+
+    @Override
+    public void saltar(float z) {
+        this.posicao_z = z;
+        System.out.println("Heroi saltando ...");
+    }
+
+    @Override
+    public void atirar() {
+        System.out.println("Heroi atirando ...");
+    }
+
+    @Override
+    public void morrer() {
+        this.vivo = false;
+        System.out.println("Morto");
+    }
+
+    @Override
+    public void camuflar(int cor) {
+        this.cor = cor;
+        System.out.println("Heroi camuflando ...");
+    }
+
+    @Override
+    public void personificar(Heroi h) {
+        this.heroi = h;
+        System.out.println("Personificando");
+    }
+}
+
+class Goldfinger extends Personagem {
+    
+    @Override
+    public void correr(float x, float y) {
+        this.posicao_x = x;
+        this.posicao_y = y;
+        System.out.println("Goldfinger correndo ...");
+    }
+
+    @Override
+    public void saltar(float z) {
+        this.posicao_z = z;
+        System.out.println("Goldfinger saltando ...");
+    }
+
+    @Override
+    public void atirar() {
+        System.out.println("Goldfinger atirando ...");
+    }
+
+    @Override
+    public void morrer() {
+        this.vivo = false;
+        System.out.println("Morto");
+    }
+
+    @Override
+    public void camuflar(int cor) {
+        this.cor = cor;
+        System.out.println("Goldfinger camuflando ...");
+    }
+
+    @Override
+    public void personificar(Heroi h) {
+        this.heroi = h;
+        System.out.println("Personificando");
+    }
+}
+
+public class Teste {
+    public static void main(String[] args) {
+        // Criando objetos
+        Heroi heroi = new Heroi();
+        Goldfinger goldfinger = new Goldfinger();
+
+        heroi.correr(10, 20);
+        heroi.saltar(5);
+        heroi.atirar();
+        heroi.morrer();
+        heroi.camuflar(1);
+        heroi.personificar(heroi);
+
+        System.out.println("------------");
+
+        goldfinger.correr(15, 25);
+        goldfinger.saltar(10);
+        goldfinger.atirar();
+        goldfinger.morrer();
+        goldfinger.camuflar(2);
+        goldfinger.personificar(heroi);
+    }
+}
