@@ -1,0 +1,61 @@
+class Cliente {
+    private String nome;
+    private double saldo;
+
+    public Cliente(String nome, double saldoInicial) {
+        this.nome = nome;
+        this.saldo = saldoInicial;
+    }
+
+    public void depositar(double valor) {
+        if (valor > 0) {
+            saldo += valor;
+        } else {
+            System.out.println("Valor de depósito inválido.");
+        }
+    }
+
+    public void retirar(double valor) {
+        if (valor > 0 && saldo >= valor) {
+            saldo -= valor;
+        } else {
+            System.out.println("Saldo insuficiente ou valor de retirada inválido.");
+        }
+    }
+
+    public void imprimirDados() {
+        System.out.println("Nome: " + nome);
+        System.out.printf("Saldo: R$%.2f\n", saldo);
+    }
+}
+
+public class Banco {
+    public static void main(String[] args) {
+        // Passo i: Criar três instâncias de Cliente
+        Cliente cliente1 = new Cliente("Jandira Silva", 2500.00);
+        Cliente cliente2 = new Cliente("Sandra Rodrigues", 1800.00);
+        Cliente cliente3 = new Cliente("Luciana Teixeira", 5000.00);
+
+        cliente1.imprimirDados();
+        cliente2.imprimirDados();
+        cliente3.imprimirDados();
+
+        cliente1.retirar(1000.00);
+
+        cliente1.imprimirDados();
+
+        cliente2.retirar(2000.00);
+
+        cliente2.depositar(500.00);
+
+        cliente2.imprimirDados();
+
+        cliente2.retirar(2000.00);
+
+        cliente2.imprimirDados();
+
+        cliente3.depositar(1000.00);
+
+        cliente3.imprimirDados();
+    }
+}
