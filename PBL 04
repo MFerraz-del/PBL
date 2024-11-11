@@ -1,0 +1,109 @@
+public void listarLivros() {
+        System.out.println("Biblioteca: " + nome);
+        for (Prateleira prateleira : prateleiras) {
+            System.out.println("Prateleira: " + prateleira);
+            for (Livro livro : prateleira.getLivros()) {
+                livro.exibirInformacoes();
+            }
+        }
+    }
+
+    public Livro buscarLivroPorCodigo(String codigo) {
+        for (Prateleira prateleira : prateleiras) {
+            for (Livro livro : prateleira.getLivros()) {
+                if (livro.getCodigo().equalsIgnoreCase(codigo)) {
+                    return livro;
+                }
+            }
+        }
+        return null;
+    }
+}
+
+public class Usuario {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        Biblioteca biblioteca1 = new Biblioteca("Biblioteca Central");
+        Prateleira prateleira1 = new Prateleira("P1");
+        prateleira1.adicionarLivro(new Livro("L001", "Java Programming", 2020, "Editora A", "Autor A", 300));
+        prateleira1.adicionarLivro(new Livro("L002", "Data Structures", 2019, "Editora B", "Autor B", 250));
+        prateleira1.adicionarLivro(new Livro("L003", "Algorithms", 2021, "Editora C", "Autor C", 400));
+        biblioteca1.adicionarPrateleira(prateleira1);
+
+        Prateleira prateleira2 = new Prateleira("P2");
+        prateleira2.adicionarLivro(new Livro("L004", "Database Systems", 2018, "Editora D", "Autor D", 350));
+        prateleira2.adicionarLivro(new Livro("L005", "Operating Systems", 2022, "Editora E", "Autor E", 500));
+        prateleira2.adicionarLivro(new Livro("L006", "Computer Networks", 2020, "Editora F", "Autor F", 450));
+        biblioteca1.adicionarPrateleira(prateleira2);
+
+        Biblioteca biblioteca2 = new Biblioteca("Biblioteca Secundária");
+        Prateleira prateleira3 = new Prateleira("P3");
+        prateleira3.adicionarLivro(new Livro("L007", "Artificial Intelligence", 2019, "Editora G", "Autor G", 600));
+        prateleira3.adicionarLivro(new Livro("L008", "Machine Learning", 2021, "Editora H", "Autor H", 550));
+        prateleira3.adicionarLivro(new Livro("L009", "Deep Learning", 2022, "Editora I", "Autor I", 620));
+        biblioteca2.adicionarPrateleira(prateleira3);
+
+        Prateleira prateleira4 = new Prateleira("P4");
+        prateleira4.adicionarLivro(new Livro("L010", "Cybersecurity", 2021, "Editora J", "Autor J", 480));
+        prateleira4.adicionarLivro(new Livro("L011", "Cloud Computing", 2020, "Editora K", "Autor K", 430));
+        prateleira4.adicionarLivro(new Livro("L012", "Big Data", 2019, "Editora L", "Autor L", 500));
+        biblioteca2.adicionarPrateleira(prateleira4);
+
+        ArrayList<Biblioteca> bibliotecas = new ArrayList<>();
+        bibliotecas.add(biblioteca1);
+        bibliotecas.add(biblioteca2);
+
+        while (true) {
+            System.out.println("===== MENU DE OPÇÕES =====");
+            System.out.println("1. Listar todos os livros");
+            System.out.println("2. Emprestar um livro");
+            System.out.println("3. Sair");
+            System.out.print("Escolha uma opção: ");
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); // Consumir nova linha
+
+            if (opcao == 1) {
+                for (Biblioteca biblioteca : bibliotecas) {
+                    biblioteca.listarLivros();
+                }
+            } else if (opcao == 2) {
+                System.out.print("Digite o código do livro que deseja emprestar: ");
+                String codigo = scanner.nextLine();
+
+                Livro livroEncontrado = null;
+                for (Biblioteca biblioteca : bibliotecas) {
+                    livroEncontrado = biblioteca.buscarLivroPorCodigo(codigo);
+                    if (livroEncontrado != null) break;
+                }
+
+                if (livroEncontrado == null) {
+                    System.out.println("Livro não encontrado.");
+                } else {
+                    System.out.println("Esse é o livro que você deseja emprestar?");
+                    livroEncontrado.exibirInformacoes();
+                    System.out.print("Digite 'sim' para confirmar ou qualquer outra tecla para cancelar: ");
+                    String confirmacao = scanner.nextLine();
+
+                    if (confirmacao.equalsIgnoreCase("sim")) {
+                        if (!livroEncontrado.isEmprestado()) {
+                            livroEncontrado.emprestar();
+                            System.out.println("Livro emprestado com sucesso!");
+                        } else {
+                            System.out.println("O livro já está emprestado.");
+                        }
+                    } else {
+                        System.out.println("Empréstimo cancelado.");
+                    }
+                }
+            } else if (opcao == 3) {
+                System.out.println("Saindo do sistema...");
+                break;
+            } else {
+                System.out.println("Opção inválida! Tente novamente.");
+            }
+        }
+
+        scanner.close();
+    }
+}
