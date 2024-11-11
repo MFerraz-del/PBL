@@ -1,0 +1,54 @@
+public class Teste {
+    public static void main(String[] args) {
+        Banco banco = new Banco();
+
+        banco.criar_conta(12345, "senha123", 1000.00);
+        banco.criar_conta(67890, "senha456", 500.00);
+        banco.criar_conta(11111, "senha789", 1500.00);
+        banco.criar_conta(22222, "senha101", 200.00);
+        banco.criar_conta(33333, "senha202", 300.00);
+
+        try {
+            banco.sacar(12345, "senha123", 200.00); // Saque válido
+            banco.sacar(12345, "senha1234", 200.00); // ExcecaoSenhaInvalida
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            banco.sacar(67890, "senha456", 600.00); // ExcecaoSaldoInsuficiente
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            banco.sacar(99999, "senha123", 100.00); // ExcecaoContaInvalida
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            banco.sacar(11111, "senha789", 500.00); // Saque válido
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            banco.sacar(22222, "senha101", 100.00); // Saque válido
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            banco.sacar(33333, "senha202", 100.00); // Saque válido
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            banco.sacar(12345, "senha123", 100.00); // ExcecaoHorarioInvalido (dependendo do horário de execução)
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
